@@ -62,4 +62,15 @@ class APIService {
       print(e.toString());
     }
   }
+
+  Future<void> deletePost(int id, int index) async {
+    try {
+      final response =
+          await delete(Uri.parse("http://$IP:3000/posts/" + id.toString()));
+      posts.removeAt(index);
+      postBox.deleteAt(index);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

@@ -77,7 +77,18 @@ class _PostsState extends State<Posts> {
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
                   Post post = posts[index];
+
                   return ListTile(
+                    onLongPress: () async {
+                      print(index);
+                      setState(() {
+                        _loading = true;
+                      });
+                      await APIService.instance.deletePost(post.id!, index);
+                      setState(() {
+                        _loading = false;
+                      });
+                    },
                     trailing: Text(post.id.toString()),
                     title: Text(post.title.toString()),
                     subtitle: Text(post.body.toString()),
